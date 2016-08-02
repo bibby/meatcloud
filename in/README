@@ -1,0 +1,9 @@
+This distribution lacks 3 necessary input components.
+
+The ./in directory should have 2 TTF files and a word list
+
+`inner.ttf` is the font used for words in the cloud.
+
+`outer.ttf` is the font used for the outer word.
+
+`words` is a next file of words to put in the cloud.
