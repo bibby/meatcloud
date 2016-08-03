@@ -1,22 +1,22 @@
 #!/bin/bash
 
-text=${1:-MEAT.}
-name=${2:-}
+min=${1:-10}
+max=${2:-25}
+
+
+name=${3:-}
 [ -z "$name" ] && {
     name=$(date "+%s")
 }
 
 docker run -it \
-    -e "TEXT=${text}" \
-    -e "WIDTH=4000" \
-    -e "HEIGHT=1200" \
-    -e "OUTER_FONT_SIZE=950" \
-    -e "HORIZ=0.6" \
-    -e "MAX_SIZE=20" \
-    -e "MIN_SIZE=10" \
+    -e "HORIZ=0.7" \
+    -e "MAX_SIZE=$max" \
+    -e "MIN_SIZE=$min" \
     -v "$PWD/in:/opt/in" \
     -v "$PWD/out:/opt/out" \
     meatcloud
 
-convert $PWD/out/meat.png -trim $PWD/out/meat.png
-cp $PWD/out/meat.png $PWD/out/${name}.png
+out="$PWD/out/meat.png"
+convert "$out" -trim "$out"
+cp $out $PWD/out/${name}.png

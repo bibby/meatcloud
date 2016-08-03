@@ -1,6 +1,7 @@
 import numpy as np
 import random
 import os
+import sys
 from PIL import Image, ImageFont, ImageDraw
 from wordcloud import WordCloud, STOPWORDS
 
@@ -13,22 +14,26 @@ OUTER_FONT_SIZE = int(os.environ.get('OUTER_FONT_SIZE', 48))
 inner_font = "/opt/in/inner.ttf"
 outer_font = "/opt/in/outer.ttf"
 
-mask = Image.new("RGBA", (WIDTH, HEIGHT), (255, 255, 255))
-draw = ImageDraw.Draw(mask)
-outer_font = ImageFont.truetype(outer_font, OUTER_FONT_SIZE)
+if len(sys.argv) > 1 and sys.argv[1] == 'mask':
+    mask = Image.new("RGBA", (WIDTH, HEIGHT), (255, 255, 255))
+    draw = ImageDraw.Draw(mask)
+    outer_font = ImageFont.truetype(outer_font, OUTER_FONT_SIZE)
 
-print TEXT
-draw.text(
-    (0, 0),
-    TEXT,
-    (0, 0, 0),
-    font=outer_font
-)
+    draw.text(
+        (0, 0),
+        TEXT,
+        (0, 0, 0),
+        font=outer_font
+    )
 
-mask.save('/opt/out/mask.png')
+    mask_out = '/opt/out/mask.png'
+    mask.save(mask_out)
+    os.chmod(mask_out, 0666)
+    exit(0)
+
 
 names = [m for m in open('/opt/in/words').read().split("\n") if m]
-random.shuffle(names)
+# random.shuffle(names)
 names = " ".join(names)
 
 mask = np.array(Image.open("/opt/out/mask.png"))
@@ -48,6 +53,7 @@ wc = MeatCloud(
     prefer_horizontal=float(os.environ.get('HORIZ', 0.9)),
     max_font_size=int(os.environ.get('MAX_SIZE', 300)),
     min_font_size=int(os.environ.get('MIN_SIZE', 4)),
+    relative_scaling=0.8,
 )
 
 

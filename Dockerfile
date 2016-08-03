@@ -18,4 +18,4 @@ COPY meatcloud.py ./
 VOLUME /opt/in
 VOLUME /opt/out
 
-CMD ["python", "meatcloud.py"]
+ENTRYPOINT ["python", "meatcloud.py"]
