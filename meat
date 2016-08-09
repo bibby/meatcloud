@@ -17,6 +17,11 @@ docker run -it \
     -v "$PWD/out:/opt/out" \
     meatcloud
 
-out="$PWD/out/meat.png"
-convert "$out" -trim "$out"
+out="$PWD/out/meat_txt.png"
+outline="$PWD/out/outline.png"
+final="$PWD/out/meat.png"
+
+convert "$out" -fuzz 20% -transparent black "$out"
+composite -gravity center "$out" "$outline" "$final"
+
 cp $out $PWD/out/${name}.png

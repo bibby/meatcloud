@@ -1,0 +1,14 @@
+#!/bin/bash
+
+text=${1:-MEAT.}
+
+docker run -it \
+    -e "TEXT=${text}" \
+    -e "WIDTH=9000" \
+    -e "HEIGHT=3500" \
+    -e "OUTER_FONT_SIZE=1800" \
+    -v "$PWD/in:/opt/in" \
+    -v "$PWD/out:/opt/out" \
+    meatcloud mask
+
+convert $PWD/out/mask.png -trim $PWD/out/mask.png

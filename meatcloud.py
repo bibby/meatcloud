@@ -36,7 +36,7 @@ names = [m for m in open('/opt/in/words').read().split("\n") if m]
 # random.shuffle(names)
 names = " ".join(names)
 
-mask = np.array(Image.open("/opt/out/mask.png"))
+mask = np.array(Image.open("/opt/in/mask.png"))
 
 
 class MeatCloud(WordCloud):
@@ -47,7 +47,7 @@ class MeatCloud(WordCloud):
 
 wc = MeatCloud(
     font_path=inner_font,
-    background_color=(10, 10, 10),
+    background_color=(0, 0, 0),
     mask=mask,
     max_words=500,
     prefer_horizontal=float(os.environ.get('HORIZ', 0.9)),
@@ -62,6 +62,6 @@ def color_func(*args, **kwargs):
 
 wc.generate_from_text(names)
 wc.recolor(color_func=color_func)
-out = "/opt/out/meat.png"
+out = "/opt/out/meat_txt.png"
 wc.to_file(out)
 os.chmod(out, 0666)
