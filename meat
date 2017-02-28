@@ -2,15 +2,13 @@
 
 min=${1:-10}
 max=${2:-25}
-
-
-name=${3:-}
-[ -z "$name" ] && {
-    name=$(date "+%s")
-}
+rel_scale=${3:-0.5}
+horiz=${4:-0.7}
+name=$(date "+%s")
 
 docker run -it \
-    -e "HORIZ=0.7" \
+    -e "HORIZ=$horiz" \
+    -e "REL_SCALE=$rel_scale" \
     -e "MAX_SIZE=$max" \
     -e "MIN_SIZE=$min" \
     -v "$PWD/in:/opt/in" \
@@ -18,10 +16,10 @@ docker run -it \
     meatcloud
 
 out="$PWD/out/meat_txt.png"
-outline="$PWD/out/outline.png"
+outline="$PWD/in/outline.png"
 final="$PWD/out/meat.png"
 
-convert "$out" -fuzz 20% -transparent black "$out"
-composite -gravity center "$out" "$outline" "$final"
+convert "$out" -fuzz 90% -transparent black "$out"
+composite -gravity center "$outline" "$out" "$final"
 
-cp $out $PWD/out/${name}.png
+cp $final $PWD/out/${name}.png

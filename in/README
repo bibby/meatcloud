@@ -1,9 +1,9 @@
-This distribution lacks 3 necessary input components.
+This distribution lacks 4 necessary input components,
+each of which should be present in the `./in` directory.
 
-The ./in directory should have 2 TTF files and a word list
+- `words`, a plain text file of words to print
+- `font.ttf`, the font used to print words.
+- `mask.png`, a solid black image defining the printable area
+- `outline.png` an optional white outline of the mask,
 
-`inner.ttf` is the font used for words in the cloud.
-
-`outer.ttf` is the font used for the outer word.
-
-`words` is a next file of words to put in the cloud.
+See docs/MAKE.md about creating a mask and outline.

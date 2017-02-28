@@ -1,5 +1,7 @@
+arc
 in/*.ttf
 in/words
 out/*.png
 out/*.zip
+out/*.tar.gz
 
